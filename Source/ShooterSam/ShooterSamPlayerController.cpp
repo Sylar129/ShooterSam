@@ -1,6 +1,5 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-
 #include "ShooterSamPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "Engine/LocalPlayer.h"
@@ -23,13 +22,18 @@ void AShooterSamPlayerController::BeginPlay()
 		{
 			// add the controls to the player screen
 			MobileControlsWidget->AddToPlayerScreen(0);
-
-		} else {
+		}
+		else
+		{
 
 			UE_LOG(LogShooterSam, Error, TEXT("Could not spawn mobile controls widget."));
-
 		}
+	}
 
+	HUDWidget = CreateWidget<UHUDWidget>(this, HUDWidgetClass);
+	if (HUDWidget)
+	{
+		HUDWidget->AddToPlayerScreen();
 	}
 }
 
