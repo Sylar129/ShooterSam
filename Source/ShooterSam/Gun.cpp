@@ -13,12 +13,17 @@ AGun::AGun()
 
 	SkeletaMeshComp = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletaMeshComp"));
 	SkeletaMeshComp->SetupAttachment(SceneComp);
+
+	MuzzleFlashParticleSystem = CreateDefaultSubobject<UNiagaraComponent>(TEXT("MuzzleFlash"));
+	MuzzleFlashParticleSystem->SetupAttachment(SkeletaMeshComp);
 }
 
 // Called when the game starts or when spawned
 void AGun::BeginPlay()
 {
 	Super::BeginPlay();
+
+	MuzzleFlashParticleSystem->Deactivate();
 }
 
 // Called every frame
@@ -29,6 +34,7 @@ void AGun::Tick(float DeltaTime)
 
 void AGun::PullTrigger()
 {
+	MuzzleFlashParticleSystem->Activate(true);
 	if (OwnerController)
 	{
 		FVector	 Location;
@@ -44,7 +50,10 @@ void AGun::PullTrigger()
 		Params.AddIgnoredActor(GetOwner());
 		if (GetWorld()->LineTraceSingleByChannel(Result, Location, EndLocation, ECollisionChannel::ECC_GameTraceChannel2, Params))
 		{
-			DrawDebugSphere(GetWorld(), Result.ImpactPoint, 10, 20, FColor::Red, true);
+			if (ImpactParticleSystem)
+			{
+				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactParticleSystem, Result.ImpactPoint, Result.ImpactPoint.Rotation());
+			}
 		}
 	}
 }

@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "Components/SceneComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 #include "Gun.generated.h"
 
@@ -31,6 +33,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* SkeletaMeshComp;
+
+	UPROPERTY(VisibleAnywhere)
+	UNiagaraComponent* MuzzleFlashParticleSystem;
+
+	UPROPERTY(EditAnywhere)
+	UNiagaraSystem* ImpactParticleSystem;
 
 	UPROPERTY(EditAnywhere)
 	float MaxRange = 10000;
