@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+
+#include "Gun.h"
+
 #include "ShooterSamCharacter.generated.h"
 
 class USpringArmComponent;
@@ -51,6 +54,12 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* ShootAction;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AGun> GunClass;
+
+	UPROPERTY(VisibleAnywhere)
+	AGun* Gun;
+
 public:
 	/** Constructor */
 	AShooterSamCharacter();
@@ -58,6 +67,9 @@ public:
 protected:
 	/** Initialize input action bindings */
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 protected:
 	/** Called for movement input */

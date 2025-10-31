@@ -76,6 +76,16 @@ void AShooterSamCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	}
 }
 
+void AShooterSamCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
+	if (Gun)
+	{
+		Gun->SetOwner(this);
+	}
+}
+
 void AShooterSamCharacter::Move(const FInputActionValue& Value)
 {
 	// input is a Vector2D
@@ -139,4 +149,8 @@ void AShooterSamCharacter::DoJumpEnd()
 void AShooterSamCharacter::Shoot()
 {
 	UE_LOG(LogTemp, Display, TEXT("shooting"));
+	if (Gun)
+	{
+		Gun->PullTrigger();
+	}
 }
