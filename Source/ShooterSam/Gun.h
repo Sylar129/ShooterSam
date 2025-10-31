@@ -32,5 +32,7 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* SkeletaMeshComp;
 
+	AController* OwnerController;
+
 	void PullTrigger();
 };

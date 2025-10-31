@@ -29,5 +29,12 @@ void AGun::Tick(float DeltaTime)
 
 void AGun::PullTrigger()
 {
-	UE_LOG(LogTemp, Display, TEXT("PullTrigger"));
+	if (OwnerController)
+	{
+		FVector	 Location;
+		FRotator Rotation;
+		OwnerController->GetPlayerViewPoint(Location, Rotation);
+
+		DrawDebugCamera(GetWorld(), Location, Rotation, 90, 2, FColor::Red, true);
+	}
 }
