@@ -15,10 +15,9 @@ class AShooterSamGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 public:
-	
 	/** Constructor */
 	AShooterSamGameMode();
+
+protected:
+	virtual void BeginPlay() override;
 };
-
-
-

@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "ShooterSamCharacter.h"
+
 #include "ShooterAI.generated.h"
 
 /**
@@ -13,6 +15,8 @@ UCLASS()
 class SHOOTERSAM_API AShooterAI : public AAIController
 {
 	GENERATED_BODY()
+public:
+	void StartBehaviorTree(AShooterSamCharacter* Player);
 
 protected:
 	virtual void BeginPlay() override;
@@ -21,4 +25,7 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UBehaviorTree* EnemyAIBehaviorTree;
+
+	AShooterSamCharacter* PlayerCharacter;
+	AShooterSamCharacter* MyCharacter;
 };
