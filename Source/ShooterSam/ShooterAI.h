@@ -18,6 +18,8 @@ class SHOOTERSAM_API AShooterAI : public AAIController
 public:
 	void StartBehaviorTree(AShooterSamCharacter* Player);
 
+	AShooterSamCharacter* PlayerCharacter;
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -26,6 +28,5 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UBehaviorTree* EnemyAIBehaviorTree;
 
-	AShooterSamCharacter* PlayerCharacter;
 	AShooterSamCharacter* MyCharacter;
 };
