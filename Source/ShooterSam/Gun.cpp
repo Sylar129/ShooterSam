@@ -2,6 +2,9 @@
 
 #include "Gun.h"
 
+#include "Kismet/GameplayStatics.h"
+#include "Engine/DamageEvents.h"
+
 // Sets default values
 AGun::AGun()
 {
@@ -53,6 +56,13 @@ void AGun::PullTrigger()
 			if (ImpactParticleSystem)
 			{
 				UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactParticleSystem, Result.ImpactPoint, Result.ImpactPoint.Rotation());
+			}
+			if (auto HitActor = Result.GetActor())
+			{
+				// two ways to take damage
+
+				// UGameplayStatics::ApplyDamage(HitActor, BulletDamage, OwnerController, this, UDamageType::StaticClass());
+				HitActor->TakeDamage(BulletDamage, FDamageEvent(UDamageType::StaticClass()), OwnerController, this);
 			}
 		}
 	}

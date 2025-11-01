@@ -89,6 +89,8 @@ void AShooterSamCharacter::BeginPlay()
 		Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, TEXT("WeaponSocket"));
 		Gun->OwnerController = GetController();
 	}
+
+	OnTakeAnyDamage.AddDynamic(this, &AShooterSamCharacter::OnDamageTaken);
 }
 
 void AShooterSamCharacter::Move(const FInputActionValue& Value)
@@ -158,4 +160,9 @@ void AShooterSamCharacter::Shoot()
 	{
 		Gun->PullTrigger();
 	}
+}
+
+void AShooterSamCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
+{
+	UE_LOG(LogTemp, Display, TEXT("taking damage: %f"), Damage);
 }
