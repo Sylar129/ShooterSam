@@ -16,4 +16,8 @@ class SHOOTERSAM_API AShooterAI : public AAIController
 
 protected:
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float DeltaTime) override;
+
+	APawn* PlayerPawn;
 };
