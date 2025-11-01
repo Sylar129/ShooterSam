@@ -66,6 +66,7 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	float Health;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	bool IsAlive = true;
 
 public:
