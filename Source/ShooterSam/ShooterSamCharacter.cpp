@@ -91,6 +91,7 @@ void AShooterSamCharacter::BeginPlay()
 	}
 
 	OnTakeAnyDamage.AddDynamic(this, &AShooterSamCharacter::OnDamageTaken);
+	Health = MaxHealth;
 }
 
 void AShooterSamCharacter::Move(const FInputActionValue& Value)
@@ -164,5 +165,16 @@ void AShooterSamCharacter::Shoot()
 
 void AShooterSamCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser)
 {
-	UE_LOG(LogTemp, Display, TEXT("taking damage: %f"), Damage);
+	if (IsAlive)
+	{
+		UE_LOG(LogTemp, Display, TEXT("taking damage: %f"), Damage);
+		Health -= Damage;
+		if (Health <= 0)
+		{
+			IsAlive = false;
+			Health = 0;
+			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			UE_LOG(LogTemp, Display, TEXT("character died: %s"), *GetActorNameOrLabel());
+		}
+	}
 }

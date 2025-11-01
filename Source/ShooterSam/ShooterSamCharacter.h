@@ -60,6 +60,14 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	AGun* Gun;
 
+	UPROPERTY(EditAnywhere)
+	float MaxHealth = 100;
+
+	UPROPERTY(VisibleAnywhere)
+	float Health;
+
+	bool IsAlive = true;
+
 public:
 	/** Constructor */
 	AShooterSamCharacter();
