@@ -66,12 +66,12 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	float Health;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	bool IsAlive = true;
-
 public:
 	/** Constructor */
 	AShooterSamCharacter();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	bool IsAlive = true;
 
 protected:
 	/** Initialize input action bindings */

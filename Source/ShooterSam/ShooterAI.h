@@ -19,6 +19,7 @@ public:
 	void StartBehaviorTree(AShooterSamCharacter* Player);
 
 	AShooterSamCharacter* PlayerCharacter;
+	AShooterSamCharacter* MyCharacter;
 
 protected:
 	virtual void BeginPlay() override;
@@ -27,6 +28,4 @@ protected:
 
 	UPROPERTY(EditAnywhere)
 	UBehaviorTree* EnemyAIBehaviorTree;
-
-	AShooterSamCharacter* MyCharacter;
 };
