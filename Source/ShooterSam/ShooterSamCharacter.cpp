@@ -1,16 +1,18 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ShooterSamCharacter.h"
-#include "Engine/LocalPlayer.h"
+
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/SpringArmComponent.h"
-#include "GameFramework/Controller.h"
+#include "Engine/LocalPlayer.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Controller.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
 #include "ShooterSam.h"
+#include "ShooterSamPlayerController.h"
 
 AShooterSamCharacter::AShooterSamCharacter()
 {
@@ -92,6 +94,7 @@ void AShooterSamCharacter::BeginPlay()
 
 	OnTakeAnyDamage.AddDynamic(this, &AShooterSamCharacter::OnDamageTaken);
 	Health = MaxHealth;
+	UpdateHUD();
 }
 
 void AShooterSamCharacter::Move(const FInputActionValue& Value)
@@ -167,8 +170,8 @@ void AShooterSamCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, con
 {
 	if (IsAlive)
 	{
-		UE_LOG(LogTemp, Display, TEXT("taking damage: %f"), Damage);
 		Health -= Damage;
+		UpdateHUD();
 		if (Health <= 0)
 		{
 			IsAlive = false;
@@ -177,5 +180,14 @@ void AShooterSamCharacter::OnDamageTaken(AActor* DamagedActor, float Damage, con
 			DetachFromControllerPendingDestroy();
 			UE_LOG(LogTemp, Display, TEXT("character died: %s"), *GetActorNameOrLabel());
 		}
+	}
+}
+
+void AShooterSamCharacter::UpdateHUD()
+{
+	AShooterSamPlayerController* PlayerController = Cast<AShooterSamPlayerController>(GetController());
+	if (PlayerController)
+	{
+		PlayerController->HUDWidget->SetHealthBarPercent(Health / MaxHealth);
 	}
 }
