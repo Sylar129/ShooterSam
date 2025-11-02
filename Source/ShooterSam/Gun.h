@@ -46,6 +46,12 @@ public:
 	UPROPERTY(EditAnywhere)
 	float BulletDamage = 10;
 
+	UPROPERTY(EditAnywhere)
+	USoundBase* ShootSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* ImpactSound;
+
 	AController* OwnerController;
 
 	void PullTrigger();
